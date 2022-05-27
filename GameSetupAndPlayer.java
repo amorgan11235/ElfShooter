@@ -14,39 +14,36 @@ import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
 public class GameSetupAndPlayer extends JPanel{
-    private final int GAME_WIDTH = 640;
-	private final int GAME_HEIGHT = 640;
+    private final int GAME_WIDTH = 1040;
+	private final int GAME_HEIGHT = 720;
 	
 	private ArrayList<Drawables> drawables= new ArrayList<Drawables>();
 	private JLabel statusbar;
-	
+	private Elf elf;
 	
 	//private JFrame testFrame =new JFrame("JFrame Color Example");
 	
 	public GameSetupAndPlayer(JLabel statusbar) {
-	    this.setSize(GAME_WIDTH, BOARD_HEIGHT);
+	    this.setSize(GAME_WIDTH, GAME_HEIGHT);
 
         this.statusbar = statusbar;
+        
+        elf= new Elf();
         createCards();
     }
 
 	//getters and Setters
-	public int boardWidth() {
-		return BOARD_WIDTH;
+	public int gameWidth() {
+		return GAME_WIDTH;
 	}
-	public int boardHeight() {
-		return BOARD_HEIGHT;
+	public int gameHeight() {
+		return GAME_HEIGHT;
 	}
-	public int squareWidth() {
-		return SQUARE_WIDTH;
-	}
-	public int squareHeight() {
-		return SQUARE_HEIGHT;
-	}
+
 	
 	//This contains the things that need to be set up before the game starts
 	private void createCards() {
-		setPreferredSize(new Dimension(BOARD_WIDTH, BOARD_HEIGHT));
+		setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
 		addMouseListener(new CardListener());
 		Drawables.setGame(this);
         newGame();
@@ -62,7 +59,7 @@ public class GameSetupAndPlayer extends JPanel{
 			drawables.add(new Card(i));
 		}
 		*/
-		drawables.add(new Board());
+		drawables.add(new Background());
 	}
 	
 
@@ -95,7 +92,12 @@ public class GameSetupAndPlayer extends JPanel{
 			 int x = e.getX();
 			 int y = e.getY();
 			 
-
+			 if(elf.canShoot()) {
+				 elf.shoot(x,y){
+					 
+				 }
+			 }
+			 
 			 repaint();
 			 System.out.println("PRESSED");
 		 }
