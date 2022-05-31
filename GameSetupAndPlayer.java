@@ -18,6 +18,7 @@ public class GameSetupAndPlayer extends JPanel{
 	private final int GAME_HEIGHT = 720;
 	
 	private ArrayList<Drawables> drawables= new ArrayList<Drawables>();
+	private ArrayList<Dwarf> dwarfList= new ArrayList<Dwarf>();
 	private JLabel statusbar;
 	private Elf elf;
 	
@@ -40,7 +41,12 @@ public class GameSetupAndPlayer extends JPanel{
 		return GAME_HEIGHT;
 	}
 
-	
+	public ArrayList<Dwarf> getDwarfList(){
+		return dwarfList;
+	}
+	public void setDwarfList(ArrayList<Dwarf> newDwarf) {
+		dwarfList=newDwarf;
+	}
 	//This contains the things that need to be set up before the game starts
 	private void createCards() {
 		setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
@@ -60,6 +66,9 @@ public class GameSetupAndPlayer extends JPanel{
 		}
 		*/
 		drawables.add(new Background());
+		drawables.add(new Elf());
+		drawables.add(new Dwarf());
+		drawables.add(new Dwarf());
 	}
 	
 
@@ -93,9 +102,8 @@ public class GameSetupAndPlayer extends JPanel{
 			 int y = e.getY();
 			 
 			 if(elf.canShoot()) {
-				 elf.shoot(x,y){
+				 elf.shoot(x,y);
 					 
-				 }
 			 }
 			 
 			 repaint();
