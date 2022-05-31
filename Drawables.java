@@ -35,6 +35,8 @@ public class Drawables {
 class Elf extends Drawables{
 	private static int delay=250;
 	private static boolean canShoot=true;
+	private int bowXLoc = 800;
+	private int bowYLoc = 100;
 	
 	public boolean canShoot() {
 		return canShoot;
@@ -42,13 +44,19 @@ class Elf extends Drawables{
 
 	public void shoot(int x, int y) {
 		ArrayList<Integer> removedDwarfs = new ArrayList<Integer>();
-		ArrayList<Dwarf> dwarfList = Game.getDwarfList();
+		ArrayList<Dwarf> dwarfList = Dwarf.getDwarfList();
 		
 		for(int i=0;i<dwarfList.size();i++) {
 			 
 		}
-		
 	}
+	
+	public int calcVertIntersect(int x, int y, int lineLoc) {
+		int m = ( (bowYLoc-y)/() );
+		int b = ()
+		return m*
+	}
+}
 }
 
 
