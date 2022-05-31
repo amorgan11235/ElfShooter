@@ -1,66 +1,113 @@
 package package01;
 
 import java.awt.Graphics2D;
-//import java.awt.BasicStroke;
-import java.awt.Rectangle;
-
-import javax.swing.ImageIcon;
-
-import java.awt.Color;
+import java.awt.Component;
+import javax.swing.JPanel;
+import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Random;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 
-
-/**
- * This class is the superclass to all of the things can be drawn
- * can probably be better done in an abstract class but idk
- * to draw something new just make sure it has the paint() method
- *
- */
-public class Drawables {
-	protected static GameSetupAndPlayer Game;
+public class GameSetupAndPlayer extends JPanel{
+    private final int GAME_WIDTH = 1040;
+	private final int GAME_HEIGHT = 720;
 	
-	public static void setGame(GameSetupAndPlayer newGame) {
-		Game=newGame;
+	private ArrayList<Drawables> drawables= new ArrayList<Drawables>();
+	private ArrayList<Dwarf> dwarfList= new ArrayList<Dwarf>();
+	private JLabel statusbar;
+	private Elf elf;
+	
+	//private JFrame testFrame =new JFrame("JFrame Color Example");
+	
+	public GameSetupAndPlayer(JLabel statusbar) {
+	    this.setSize(GAME_WIDTH, GAME_HEIGHT);
+
+        this.statusbar = statusbar;
+        
+        elf= new Elf();
+        createCards();
+    }
+
+	//getters and Setters
+	public int gameWidth() {
+		return GAME_WIDTH;
+	}
+	public int gameHeight() {
+		return GAME_HEIGHT;
+	}
+
+	public ArrayList<Dwarf> getDwarfList(){
+		return dwarfList;
+	}
+	public void setDwarfList(ArrayList<Dwarf> newDwarf) {
+		dwarfList=newDwarf;
+	}
+	//This contains the things that need to be set up before the game starts
+	private void createCards() {
+		setPreferredSize(new Dimension(GAME_WIDTH, GAME_HEIGHT));
+		addMouseListener(new CardListener());
+		Drawables.setGame(this);
+        newGame();
 	}
 	
-	public void paint(Graphics2D g2d) {
-		
-	}
-}
-
-/**
- * 
- */
-class Elf extends Drawables{
-	private static int delay=250;
-	private static boolean canShoot=true;
 	
-	public boolean canShoot() {
-		return canShoot;
+	private void newGame() {
+		/*
+		//draw all the nessary things
+		int space=0;
+		for(int i =0; i<=GAME_WIDTH-CARD_WIDTH-space; i=i+CARD_WIDTH+space) {
+
+			drawables.add(new Card(i));
+		}
+		*/
+		drawables.add(new Background());
+		drawables.add(new Elf());
+		drawables.add(new Dwarf());
+		drawables.add(new Dwarf());
 	}
-
-	public void shoot(int x, int y) {
-		//for()
-	}
-}
-
-
-/**
- *
- */
-class Dwarf extends Drawables{
 	
-}
 
-/**
-*
-*/
-class Background extends Drawables{
-	public void paint(Graphics2D g2d) {
-		g2d.setColor(Color.GREEN);
-		g2d.fillRect(0, 0, Game.getWidth(), Game.getHeight());
-		g2d.setColor(Color.GRAY);
-		g2d.fillRect(Game.getWidth()-240, 0, Game.getWidth(), Game.getHeight());
-		g2d.fillRect(0, 300, Game.getWidth(), 20);
+	/**
+	 * 
+	 * okay this is a son of a female dog 
+	 * 	This is what is executed whenever you want to paint something 
+	 * Can not have multiple seperate methods for separate things
+	 * Thus we go through the drawables arraylist and paint each one of those instead
+	 * to modify what is painted modify that
+	 */
+
+	
+	@Override
+	public void paintComponent(Graphics g) {
+        super.paintComponent(g);     
+        
+        Graphics2D g2d = (Graphics2D) g.create();
+        for (Drawables drawable : drawables) {
+            drawable.paint(g2d);
+        }
+        g2d.dispose();
+        //drawables=new ArrayList<Drawables>();
+	}
+
+
+	//This handles the user interaction
+	private class CardListener extends MouseAdapter{
+		 public void mousePressed(MouseEvent e) {
+			 int x = e.getX();
+			 int y = e.getY();
+			 
+			 if(elf.canShoot()) {
+				 elf.shoot(x,y);
+					 
+			 }
+			 
+			 repaint();
+			 System.out.println("PRESSED");
+		 }
 	}
 }
