@@ -1,53 +1,66 @@
 package package01;
 
+import java.awt.Graphics2D;
+//import java.awt.BasicStroke;
+import java.awt.Rectangle;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.ImageIcon;
+
+import java.awt.Color;
+import java.awt.Image;
+
+
+/**
+ * This class is the superclass to all of the things can be drawn
+ * can probably be better done in an abstract class but idk
+ * to draw something new just make sure it has the paint() method
+ *
+ */
+public class Drawables {
+	protected static GameSetupAndPlayer Game;
+	
+	public static void setGame(GameSetupAndPlayer newGame) {
+		Game=newGame;
+	}
+	
+	public void paint(Graphics2D g2d) {
+		
+	}
+}
 
 /**
  * 
- * Based off of Java Minesweeper Game
- *
- * Author: Jan Bodnar
- * Website: http://zetcode.com
  */
+class Elf extends Drawables{
+	private static int delay=250;
+	private static boolean canShoot=true;
+	
+	public boolean canShoot() {
+		return canShoot;
+	}
 
-public class mainThreadForGame extends JFrame {
+	public void shoot(int x, int y) {
+		//for()
+	}
+}
 
-    private JLabel statusbar;
 
-    public mainThreadForGame() {
+/**
+ *
+ */
+class Dwarf extends Drawables{
+	
+}
 
-        initUI();
-    }
-
-    private void initUI() {
-
-    	//dont completely know what this does but its important I think sorta
-    	//sets up for drawing
-        statusbar = new JLabel("");
-        add(statusbar, BorderLayout.SOUTH);
-
-        add(new GameSetupAndPlayer(statusbar));
-		
-        setResizable(false);
-        pack();
-
-        setTitle("Java Test");
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-    }
-
-    public static void main(String[] args) {
-    	
-    	//ignore this it works
-        EventQueue.invokeLater(() -> {
-
-        	mainThreadForGame ex = new mainThreadForGame();
-            ex.setVisible(true);
-        });
-        System.out.println("OK");
-    }
+/**
+*
+*/
+class Background extends Drawables{
+	public void paint(Graphics2D g2d) {
+		g2d.setColor(Color.GREEN);
+		g2d.fillRect(0, 0, Game.getWidth(), Game.getHeight());
+		g2d.setColor(Color.GRAY);
+		g2d.fillRect(Game.getWidth()-240, 0, Game.getWidth(), Game.getHeight());
+		g2d.fillRect(0, 300, Game.getWidth(), 20);
+	}
 }
