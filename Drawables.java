@@ -3,6 +3,7 @@ package package01;
 import java.awt.Graphics2D;
 //import java.awt.BasicStroke;
 import java.awt.Rectangle;
+import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
 
@@ -40,6 +41,12 @@ class Elf extends Drawables{
 	}
 
 	public void shoot(int x, int y) {
+		ArrayList<Integer> removedDwarfs = new ArrayList<Integer>();
+		ArrayList<Dwarf> dwarfList = Game.getDwarfList();
+		
+		for(int i=0;i<dwarfList.size();i++) {
+			 
+		}
 		
 	}
 }
@@ -57,6 +64,10 @@ class Dwarf extends Drawables{
 */
 class Background extends Drawables{
 	public void paint(Graphics2D g2d) {
+		g2d.setColor(Color.GREEN);
 		g2d.fillRect(0, 0, Game.getWidth(), Game.getHeight());
+		g2d.setColor(Color.GRAY);
+		g2d.fillRect(Game.getWidth()-240, 0, Game.getWidth(), Game.getHeight());
+		g2d.fillRect(0, 300, Game.getWidth(), 20);
 	}
 }
