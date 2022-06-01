@@ -3,6 +3,7 @@ package package01;
 import java.awt.Graphics2D;
 //import java.awt.BasicStroke;
 import java.awt.Rectangle;
+import java.awt.image.ImageObserver;
 import java.util.ArrayList;
 
 import javax.swing.ImageIcon;
@@ -42,6 +43,10 @@ class Elf extends Drawables{
 		return canShoot;
 	}
 
+	public void paint(Graphics2D g2d) {
+		 
+	}
+
 	public void shoot(int x, int y) {
 		ArrayList<Integer> removedDwarfs = new ArrayList<Integer>();
 		ArrayList<Dwarf> dwarfList = Dwarf.getDwarfList();
@@ -62,8 +67,75 @@ class Elf extends Drawables{
 /**
  *
  */
-class Dwarf extends Drawables{
+
+class Dwarf extends Drawables {
+	protected int xLoc;
+	protected int yLoc;
 	
+	private int xEnterLoc;
+	private int yEnterLoc;
+	
+	protected int xExitLoc;
+	protected int yExitLoc;
+	
+	private final int dwarfWidth=128;
+	private final int dwarfHeight=128;
+	
+	private static ArrayList <Dwarf> dwarfList = new ArrayList <Dwarf>();
+	private DwarfMovement m;
+	private Image img;
+	
+	public Dwarf () {
+		String path = "src/images/dwarf.png";
+		img=(new ImageIcon(path)).getImage();
+		//m = new DwarfMovement();
+		//m.start();
+		//dwarfList.add(this);
+	}
+	
+	public void setDwarfList(ArrayList<Dwarf> newDwarfList) {
+		dwarfList = newDwarfList;
+	}
+	public static ArrayList<Dwarf> getDwarfList(){
+		return dwarfList;
+	}
+
+	public int getXLoc () {
+		return (xLoc);
+	}
+	public int getYLoc () {
+		return (yLoc);
+	}
+	public int getXEnterLoc () {
+		return (xEnterLoc);
+	}
+	public int getYEnterLoc () {
+		return (yEnterLoc);
+	}
+	public int getXExitLoc () {
+		return (xExitLoc);
+	}
+	public int getYExitLoc () {
+		return (yExitLoc);
+	}
+	public int getDwarfWidth () {
+		return (dwarfWidth);
+	}
+	public int getDwarfHeight () {
+		return (dwarfHeight);
+	}
+	
+	public void paint(Graphics2D g2d) {
+		g2d.drawImage(img,20,20,Game);
+		g2d.fillRect(0, 0, 20, 20);
+	}
+	
+	
+	class DwarfMovement extends Thread {
+		public void run () {
+			
+		}
+	}
 }
 
 /**
@@ -76,5 +148,6 @@ class Background extends Drawables{
 		g2d.setColor(Color.GRAY);
 		g2d.fillRect(Game.getWidth()-240, 0, Game.getWidth(), Game.getHeight());
 		g2d.fillRect(0, 300, Game.getWidth(), 20);
+		
 	}
 }

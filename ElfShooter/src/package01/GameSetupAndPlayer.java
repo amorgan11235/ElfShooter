@@ -69,6 +69,7 @@ public class GameSetupAndPlayer extends JPanel{
 		drawables.add(new Elf());
 		drawables.add(new Dwarf());
 		drawables.add(new Dwarf());
+		repaint();
 	}
 	
 
@@ -106,7 +107,7 @@ public class GameSetupAndPlayer extends JPanel{
 					 
 			 }
 			 
-			 repaint();
+			 repaint();	
 			 System.out.println("PRESSED");
 		 }
 	}
