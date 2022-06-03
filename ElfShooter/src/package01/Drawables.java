@@ -57,9 +57,10 @@ class Elf extends Drawables{
 	}
 	
 	public int calcVertIntersect(int x, int y, int lineLoc) {
-		int m = ( (bowYLoc-y)/(bowXLoc-x) );
-		int b = (y-m*x);
-		return m*lineLoc;
+		//add a catch for xLoc = x
+		double m = ( (bowYLoc-y)/(bowXLoc-x) );
+		double b = (y-m*x);
+		return (int) (m*lineLoc + b);
 	}
 }
 
@@ -78,8 +79,8 @@ class Dwarf extends Drawables {
 	protected int xExitLoc;
 	protected int yExitLoc;
 	
-	private final int dwarfWidth=128;
-	private final int dwarfHeight=128;
+	private int dwarfWidth=128;
+	private int dwarfHeight=128;
 	
 	private static ArrayList <Dwarf> dwarfList = new ArrayList <Dwarf>();
 	private DwarfMovement m;
@@ -88,6 +89,8 @@ class Dwarf extends Drawables {
 	public Dwarf () {
 		String path = "src/images/dwarf.png";
 		img=(new ImageIcon(path)).getImage();
+		dwarfHeight=img.getHeight(null);
+		dwarfWidth=img.getWidth(null);
 		//m = new DwarfMovement();
 		//m.start();
 		//dwarfList.add(this);
@@ -126,8 +129,7 @@ class Dwarf extends Drawables {
 	}
 	
 	public void paint(Graphics2D g2d) {
-		g2d.drawImage(img,20,20,Game);
-		g2d.fillRect(0, 0, 20, 20);
+		g2d.drawImage(img,20,20,null);
 	}
 	
 	
