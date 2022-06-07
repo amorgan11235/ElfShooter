@@ -63,19 +63,74 @@ class Elf extends Drawables{
 /**
  *
  */
-class Dwarf extends Drawables{
+class Dwarf extends Drawables {
+	protected int xLoc;
+	protected int yLoc;
+	protected int xEnterLoc;
+	protected int yEnterLoc;
+	protected int xExitLoc;
+	protected int yExitLoc;
+	protected int dwarfWidth;
+	protected int dwarfHeight;
 	
-}
+	private static ArrayList <Dwarf> dwarfList = new ArrayList <Dwarf>();
+	private DwarfMovement m;
+	public Dwarf () {
+		m = new DwarfMovement();
+		m.start();
+		dwarfList.add(this);
+		ID = IDAt;
+		IDAt++;
+	}
+	
+	public void setDwarfList(ArrayList<Dwarf> newDwarfList) {
+		dwarfList = newDwarfList;
+	}
+	public ArrayList<Dwarf> getDwarfList(){
+		return dwarfList;
+	}
 
-/**
-*
-*/
-class Background extends Drawables{
-	public void paint(Graphics2D g2d) {
-		g2d.setColor(Color.GREEN);
-		g2d.fillRect(0, 0, Game.getWidth(), Game.getHeight());
-		g2d.setColor(Color.GRAY);
-		g2d.fillRect(Game.getWidth()-240, 0, Game.getWidth(), Game.getHeight());
-		g2d.fillRect(0, 300, Game.getWidth(), 20);
+	public int getXLoc () {
+		return (xLoc);
+	}
+	public int getYLoc () {
+		return (yLoc);
+	}
+	public int getXEnterLoc () {
+		return (xEnterLoc);
+	}
+	public int getYEnterLoc () {
+		return (yEnterLoc);
+	}
+	public int getXExitLoc () {
+		return (xExitLoc);
+	}
+	public int getYExitLoc () {
+		return (yExitLoc);
+	}
+	public int getDwarfWidth () {
+		return (dwarfWidth);
+	}
+	public int getDwarfHeight () {
+		return (dwarfHeight);
+	}
+	class DwarfMovement extends Thread {
+		public void run () {
+			while (true) {
+				try {
+					wait(100);
+				} 
+				catch (InterruptedException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				if (xLoc == 1023) {
+					xLoc=0;
+				}
+				else { 
+					xLoc+=1;		
+				}
+			}
+		}
 	}
 }
